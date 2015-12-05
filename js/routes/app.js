@@ -2,14 +2,14 @@
     routes: {
       "companies": "companies",
       "discounts/:companyId": "discounts",
-      "employees": "employees"
+      "employees/:companyId": "employees"
     },
 
     initialize: function(options) {
     },
 
     companies: function() {
-      state.set({ section: "companies" });
+      state.set({ section: "companies", companyId: "" });
     },
 
     discounts: function(companyId) {

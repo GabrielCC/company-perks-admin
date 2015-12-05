@@ -60,7 +60,7 @@
         </header>
 
         <div id="main">
-          <input id="toggle-all" type="checkbox">
+          <input idw="toggle-all" type="checkbox">
           <label for="toggle-all">Mark all as complete</label>
           
           <ul id="companies-list" class='items-list'>
@@ -89,7 +89,10 @@
 	<div class="view">
 	  <label class="todo-content"><%= _.escape(name) %></label>
     <label  data-company-id="<%=_.escape(objectId)%>">
-      <a class="employee-discount"href="#discounts/<%=_.escape(objectId)%>">Discounts</a>
+      <a class="company-discount"href="#discounts/<%=_.escape(objectId)%>">Discounts</a>
+    </label>
+    <label  data-company-id="<%=_.escape(objectId)%>">
+      <a class="company-employee" href="#employees/<%=_.escape(objectId)%>">Employees</a>
     </label>
 	  <button class="todo-destroy"></button>
 	</div>
