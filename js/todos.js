@@ -41,7 +41,7 @@
       
       Parse.User.logIn(username, password, {
         success: function(user) {
-          new ManageTodosView();
+          new ManageCompaniesView();
           self.undelegateEvents();
           delete self;
         },
@@ -64,7 +64,7 @@
       
       Parse.User.signUp(username, password, { ACL: new Parse.ACL() }, {
         success: function(user) {
-          new ManageTodosView();
+          new ManageCompaniesView();
           self.undelegateEvents();
           delete self;
         },
