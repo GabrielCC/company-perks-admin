@@ -23,7 +23,7 @@ body {
     line-height: 1.4em;
     background: #eeeeee url('../images/bg.png');
     color: #4d4d4d;
-    width: 550px;
+    width: 1024px;
     margin: 0 auto;
     -webkit-font-smoothing: antialiased;
     -moz-font-smoothing: antialiased;
@@ -110,7 +110,7 @@ body {
     border-top-right-radius: 1px;
 }
 
-.new-todo, #new-employee, .edit {
+.new-todo, .new-discount, #new-employee, .edit {
     position: relative;
     margin: 0;
     width: 100%;
@@ -133,6 +133,21 @@ body {
     -ms-font-smoothing: antialiased;
     -o-font-smoothing: antialiased;
     font-smoothing: antialiased;
+}
+
+.new-discount{
+    width:40%;
+    float:left;
+}
+
+.new-discount:first-child{
+    margin-left:43px;
+}
+
+#add-new-discount{
+    display:block;
+    float:left;
+    padding:14px;
 }
 
 .new-todo, #new-employee {
