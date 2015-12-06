@@ -69,7 +69,7 @@
       var el = $(e.target);
       var filterValue = el.attr("id");
       state.set({filter: filterValue});
-      Parse.history.navigate(filterValue);
+      Parse.history.navigate(filterValue, {trigger: true});
     },
 
     filter: function() {
