@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Company Perks Admin - Statistics</title>
+    <link href="css/todos.css" media="all" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+    <!-- Todo App Interface -->
+
+    <div id="todoapp">
+        <div class="title">
+            <h1>Company Perks Admin</h1>
+        </div>
+
+        <div class="content">
+			<div class="back-btn">
+				<a href="index.html" class="bck">Back to companies</a>
+			</div>
+			<div style="clear:both"></div>
+            <div class="section">
+
+                <div id="main">
+                    <ul id="companies-list" class='items-list'>
+                        <img src='images/spinner.gif' class='spinner' />
+                    </ul>
+                </div>
+
+                <div id="todo-stats"></div>
+            </div>
+        </div>
+    </div>
+    <script type="text/template" id="company-template">
+        <li>
+            <div class="view">
+                <label class="todo-content">
+                    <%= _.escape(type) %>
+                </label>
+                <label class="todo-content">
+                    <%= _.escape(name) %>
+                </label>
+                <label class="todo-content">
+                    <%= _.escape(total) %>
+                </label>
+            </div>
+        </li>
+    </script>
+    <div id="credits">
+        Powered by <a href="https://www.parse.com">Parse</a> using the <a href="https://www.parse.com/docs/js_guide">JavaScript
+    SDK</a>.
+        <br/>
+        <br/> Inspired by this <a href='https://parse.com/tutorials/todo-app-with-javascript'>tutorial</a>.
+    </div>
+
+
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script src="js/underscore.js"></script>
+    <script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
+    <script type="text/javascript">
+        Parse.$ = jQuery;
+
+        // Initialize Parse with your Parse application javascript keys
+        Parse.initialize("zdY62t9B2BSHO2q4MIwsnkJLdYhTLTTQl2Pu1aMI",
+            "Izte39O8CfTaPB1qNjHrsDDeuHzcqOql4nV5JgDW");
+        var template = _.template($('#company-template').html());
+        var weekQuery = new Parse.Query('Statistic');
+        var d = new Date();
+        weekQuery.equalTo('merchantId', 'YFF4QV33J4PDW');
+        weekQuery.containedIn('weekNumber', [getWeekNumber(), getWeekNumber() - 1]);
+        var monthQuery = new Parse.Query('Statistic');
+        monthQuery.equalTo('merchantId', 'YFF4QV33J4PDW');
+        monthQuery.containedIn('monthNumber', [d.getMonth() + 1, d.getMonth()]);
+        var query = new Parse.Query('Statistic');
+        query._orQuery([monthQuery, weekQuery]);
+        query.find().then(function(results) {
+            var mapping = {
+                'lastMonth': {
+                    'label': 'Last Month',
+                    'companies': []
+                },
+                'thisMonth': {
+                    'label': 'This Month',
+                    'companies': []
+                },
+                'lastWeek': {
+                    'label': 'Last Week',
+                    'companies': []
+                },
+                'thisWeek': {
+                    'label': 'This Week',
+                    'companies': []
+                }
+            }
+            var companies = [];
+            $(results).each(function(index, item) {
+                if (item.get('weekNumber') === getWeekNumber()) {
+                    mapping['thisWeek']['companies'].push(item);
+                } else
+                if (item.get('weekNumber') === getWeekNumber() - 1) {
+                    mapping['lastWeek']['companies'].push(item);
+                }
+                var d = new Date();
+                if (item.get('monthNumber') === d.getMonth()) {
+                    mapping['lastMonth']['companies'].push(item);
+                } else {
+                    mapping['thisMonth']['companies'].push(item);
+                }
+                companies.push(item.get('companyId'));
+
+            });
+            var mappingCompanies = {};
+            var query = new Parse.Query('Company');
+            query.containedIn('objectId', companies);
+            query.find().then(function(results) {
+                $(results).each(function(index, item) {
+                    mappingCompanies[item.id] = item;
+                });
+            }).then(function(){
+	            var sections = ['lastMonth', 'thisMonth', 'lastWeek', 'thisWeek'].reverse();
+	            $(sections).each(function(section_index, section) {
+	                $(mapping[section]['companies']).each(function(index, item) {
+	                    var html = template({
+	                        'type': mapping[section]['label'],
+	                        'name': mappingCompanies[item.get('companyId')].get('name'),
+	                        'total': item.get('total')
+	                    });
+	                    $('#companies-list').append(html);
+	                });
+	            });
+	            $('.spinner').remove();
+            });
+        });
+
+        function getWeekNumber() {
+            // Copy date so don't modify original
+            var d = new Date();
+            d.setHours(0, 0, 0);
+            // Set to nearest Thursday: current date + 4 - current day number
+            // Make Sunday's day number 7
+            d.setDate(d.getDate() + 4 - (d.getDay() || 7));
+            // Get first day of year
+            var yearStart = new Date(d.getFullYear(), 0, 1);
+            // Calculate full weeks to nearest Thursday
+            var weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+            // Return array of year and week number
+            return weekNo;
+        }
+    </script>
+</body>
+
+</html>
