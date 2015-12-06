@@ -12,7 +12,6 @@
     // collection, when items are added or changed. Kick things off by
     // loading any preexisting todos that might be saved to Parse.
     initialize: function(companyId) {
-      debugger;
       var self = this;
       self.company = new Company();
       self.company.id = companyId;
