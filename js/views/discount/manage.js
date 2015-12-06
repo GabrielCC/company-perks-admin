@@ -88,6 +88,8 @@
       var self = this;
       var company = new Company();
       company.id = state.get('companyId');
+      company.set('name', state.get('companyName'));
+
       try {
       this.model.create({
         merchantId: this.merchantIdNew.val(),

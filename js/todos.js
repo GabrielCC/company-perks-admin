@@ -17,7 +17,8 @@
   var AppState = Parse.Object.extend("AppState", {
     defaults: {
       section: "companies",
-      companyId: ""
+      companyId: "", 
+      companyName: ""
     }
   });
 

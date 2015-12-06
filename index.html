@@ -107,10 +107,10 @@
         <div class="view">
             <label class="todo-content"><%= _.escape(name) %></label>
             <label data-company-id="<%=_.escape(objectId)%>">
-                <a class="company-discount" href="#discounts/<%=_.escape(objectId)%>">Discounts</a>
+                <a class="company-discount" href="#discounts/<%=_.escape(objectId)%>/<%= _.escape(name) %>">Discounts</a>
             </label>
             <label data-company-id="<%=_.escape(objectId)%>">
-                <a class="company-employee" href="#employees/<%=_.escape(objectId)%>">Employees</a>
+                <a class="company-employee" href="#employees/<%=_.escape(objectId)%>/<%= _.escape(name) %>">Employees</a>
             </label>
             <button class="todo-destroy"></button>
         </div>
