@@ -453,15 +453,11 @@ label[for='toggle-all'] {
     margin-bottom: 15px;
 }
 
-#todoapp .content .back-btn, #todoapp .content #user-info {
+#todoapp .content .back-btn{
     padding: 5px 10px;
     margin-bottom: 0px;
     text-align: left;
-    float:right
-}
-
-#todoapp .content .back-btn {
-    float: left;
+    float:right;
 }
 
 
