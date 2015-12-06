@@ -11,7 +11,7 @@
 
     render: function() {
       if (Parse.User.current()) {
-        new ManageCompaniesView();
+        this.changeView();
       } else {
         new LogInView();
       }
@@ -25,7 +25,7 @@
         'employees': 'ManageEmployeesView'
       };
       var view = views[section];
-      new window[view];
+      new window[view](companyId);
 
     }
   });

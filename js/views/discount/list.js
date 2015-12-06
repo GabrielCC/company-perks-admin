@@ -1,6 +1,6 @@
-var CompanyList = Parse.Collection.extend({
+var DiscountList = Parse.Collection.extend({
 	// Reference to this collection's model.
-	model: Company,
+	model: Discount,
 
 	// // Filter down the list of all todo items that are finished.
 	// done: function() {

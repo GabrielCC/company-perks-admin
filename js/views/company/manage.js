@@ -39,7 +39,6 @@
       // Fetch all the todo items for this user
       this.companies.fetch();
 
-      state.on("change", this.filter, this);
     },
 
     // Logs out the user and shows the login view

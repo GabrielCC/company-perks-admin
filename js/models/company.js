@@ -7,9 +7,9 @@
 
     // Ensure that each todo created has `content`.
     initialize: function() {
-      if (!this.get("name")) {
-        this.set({"name": this.defaults.name});
-      }
+      // if (!this.get("name")) {
+      //   this.set({"name": this.defaults.name});
+      // }
     },
 
   });

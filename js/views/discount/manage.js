@@ -1,16 +1,9 @@
-  var ManageCompaniesView = Parse.View.extend({
-
-    // Our template for the line of statistics at the bottom of the app.
-    statsTemplate: _.template($('#stats-template').html()),
+  var ManageDiscountsView = Parse.View.extend({
 
     // Delegated events for creating new items, and clearing completed ones.
     events: {
-      "keypress #new-todo":  "createOnEnter",
-      "click #clear-completed": "clearCompleted",
-      "click #toggle-all": "toggleAllComplete",
+      "click #add-new-discount": "createOnEnter",
       "click .log-out": "logOut",
-      "click ul#filters a": "selectFilter",
-      "click a.employee-discount": "listDiscounts"
     },
 
     el: ".content",
@@ -19,30 +12,33 @@
     // collection, when items are added or changed. Kick things off by
     // loading any preexisting todos that might be saved to Parse.
     initialize: function(companyId) {
+      debugger;
       var self = this;
+      self.company = new Company();
+      self.company.id = companyId;
 
       _.bindAll(this, 'addOne', 'addAll', 'addSome', 'render', 'toggleAllComplete', 'logOut', 'createOnEnter');
 
       // Main todo management template
-      this.$el.html(_.template($("#manage-companies-template").html()));
+      this.$el.html(_.template($("#manage-discounts-template").html()));
       
-      this.input = this.$("#new-todo");
+      this.merchantIdNew = this.$("#merchant-id-new");
+      this.discountNew = this.$("#discount-new");
       this.allCheckbox = this.$("#toggle-all")[0];
 
       // Create our collection of Todos
-      this.companies = new CompanyList;
+      this.model = new DiscountList;
 
       // Setup the query for the collection to look for todos from the current user
-      this.companies.query = new Parse.Query(Company);
-        
-      this.companies.bind('add',     this.addOne);
-      this.companies.bind('reset',   this.addAll);
-      this.companies.bind('all',     this.render);
+      this.model.query = new Parse.Query(Discount);
+      this.model.query.equalTo("companyId", self.company);
+      this.model.bind('add',     this.addOne);
+      this.model.bind('reset',   this.addAll);
+      this.model.bind('all',     this.render);
 
       // Fetch all the todo items for this user
-      this.companies.fetch();
+      this.model.fetch();
 
-      state.on("change", this.filter, this);
     },
 
     // Logs out the user and shows the login view
@@ -58,85 +54,63 @@
     render: function() {
 
       // // this.$('#todo-stats').html(this.statsTemplate({
-      // //   total:      this.companies.length,
+      // //   total:      this.model.length,
       // //   done:       done,
       // //   remaining:  remaining
       // // }));
 
-      // this.delegateEvents();
+      this.delegateEvents();
 
       // this.allCheckbox.checked = !remaining;
-    },
-
-    // Filters the list based on which type of filter is selected
-    selectFilter: function(e) {
-      var el = $(e.target);
-      var filterValue = el.attr("id");
-      state.set({filter: filterValue});
-      Parse.history.navigate(filterValue);
-    },
-
-    filter: function() {
-      var filterValue = state.get("filter");
-      this.$("ul#filters a").removeClass("selected");
-      this.$("ul#filters a#" + filterValue).addClass("selected");
-      if (filterValue === "all") {
-        this.addAll();
-      } else if (filterValue === "completed") {
-        this.addSome(function(item) { return item.get('done') });
-      } else {
-        this.addSome(function(item) { return !item.get('done') });
-      }
-    },
-
-    // Resets the filters to display all todos
-    resetFilters: function() {
-      this.$("ul#filters a").removeClass("selected");
-      this.$("ul#filters a#all").addClass("selected");
-      this.addAll();
     },
 
     // Add a single todo item to the list by creating a view for it, and
     // appending its element to the `<ul>`.
     addOne: function(todo) {
-      var view = new CompanyView({model: todo});
-      this.$("#companies-list").append(view.render().el);
+      var view = new DiscountView({model: todo});
+      this.$("#discounts-list").append(view.render().el);
     },
 
     // Add all items in the Todos collection at once.
     addAll: function(collection, filter) {
-      this.$("#companies-list").html("");
-      this.companies.each(this.addOne);
+      this.$("#discounts-list").html("");
+      this.model.each(this.addOne);
     },
 
     // Only adds some todos, based on a filtering function that is passed in
     addSome: function(filter) {
       var self = this;
-      this.$("#companies-list").html("");
-      this.companies.chain().filter(filter).each(function(item) { self.addOne(item) });
+      this.$("#discounts-list").html("");
+      this.model.chain().filter(filter).each(function(item) { self.addOne(item) });
     },
 
     // If you hit return in the main input field, create new Todo model
     createOnEnter: function(e) {
       var self = this;
-      if (e.keyCode != 13) return;
-
-      this.companies.create({
-        name: this.input.val()
+      var company = new Company();
+      company.id = state.get('companyId');
+      try {
+      this.model.create({
+        merchantId: this.merchantIdNew.val(),
+        discount: parseInt(this.discountNew.val()),
+        companyId: company
       });
-
-      this.input.val('');
-      this.resetFilters();
+      } catch(err) {
+        debugger;
+      }
+      debugger;
+      this.merchantIdNew.val('');
+      this.discountNew.val('');
     },
 
     // Clear all done todo items, destroying their models.
     clearCompleted: function() {
-      _.each(this.companies.done(), function(todo){ todo.destroy(); });
+      _.each(this.model.done(), function(todo){ todo.destroy(); });
       return false;
     },
 
     toggleAllComplete: function () {
       var done = this.allCheckbox.checked;
-      this.companies.each(function (todo) { todo.save({'done': done}); });
+      this.model.each(function (todo) { todo.save({'done': done}); });
     }
   });
