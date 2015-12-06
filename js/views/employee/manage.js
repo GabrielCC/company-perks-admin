@@ -128,6 +128,7 @@ var ManageEmployeesView = Parse.View.extend({
         var firstName, lastName, names = this.input.val();
         var company = new Company();
         company.id = state.get('companyId');
+        company.set('name', state.get('companyName'));
 
         if(names === ""){
             names = "John Doe";

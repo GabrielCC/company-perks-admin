@@ -13,7 +13,6 @@
     // collection, when items are added or changed. Kick things off by
     // loading any preexisting todos that might be saved to Parse.
     initialize: function(companyId) {
-      debugger;
       var self = this;
       self.company = new Company();
       self.company.id = companyId;
@@ -90,6 +89,8 @@
       var self = this;
       var company = new Company();
       company.id = state.get('companyId');
+      company.set('name', state.get('companyName'));
+
       try {
       this.model.create({
         merchantId: this.merchantIdNew.val(),
