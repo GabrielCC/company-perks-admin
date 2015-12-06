@@ -54,7 +54,7 @@
 <script type="text/template" id="manage-companies-template">
     <div class="section">
         <header id="header">
-          <input id="new-todo" class="new-todo" placeholder="Company name" type="text" />
+            <input id="new-todo" class="new-todo" placeholder="Company name" type="text"/>
         </header>
 
         <div id="main">
@@ -95,17 +95,17 @@
 </script>
 
 
-
-
 <script type="text/template" id="company-template">
     <li>
         <div class="view">
             <label class="todo-content"><%= _.escape(name) %></label>
             <label data-company-id="<%=_.escape(objectId)%>">
-                <a class="company-discount" href="#discounts/<%=_.escape(objectId)%>/<%= _.escape(name) %>">Discounts</a>
+                <a class="company-discount"
+                   href="#discounts/<%=_.escape(objectId)%>/<%= _.escape(name) %>">Discounts</a>
             </label>
             <label data-company-id="<%=_.escape(objectId)%>">
-                <a class="company-employee" href="#employees/<%=_.escape(objectId)%>/<%= _.escape(name) %>">Employees</a>
+                <a class="company-employee"
+                   href="#employees/<%=_.escape(objectId)%>/<%= _.escape(name) %>">Employees</a>
             </label>
             <button class="todo-destroy"></button>
         </div>
@@ -123,62 +123,63 @@
     </li>
 </script>
 
-    <script type="text/template" id="manage-discounts-template">
-        <div class="back-btn">
-            <a href="javascript://" class="bck">Back to companies</a>
-        </div>
-        <div style="clear:both"></div>
-      <div class="section">
+<script type="text/template" id="manage-discounts-template">
+    <div class="back-btn">
+        <a href="javascript://" class="bck">Back to companies</a>
+    </div>
+    <div style="clear:both"></div>
+    <div class="section">
 
         <header id="header">
-          <input id="merchant-id-new" class="new-discount" placeholder="Merchant id" type="text" />
-          <input id="discount-new" class="new-discount" placeholder="Discount" type="text" />
-          <input type="submit" value="submit" id="add-new-discount"/>
-          <div style="clear:both"></div>
+            <input id="merchant-id-new" class="new-discount" placeholder="Merchant id" type="text"/>
+            <input id="discount-new" class="new-discount" placeholder="Discount" type="text"/>
+            <input type="submit" value="submit" id="add-new-discount"/>
+
+            <div style="clear:both"></div>
         </header>
 
         <div id="main">
-          <ul id="discounts-list" class='items-list'>
-            <img src='images/spinner.gif' class='spinner' />
-          </ul>
+            <ul id="discounts-list" class='items-list'>
+                <img src='images/spinner.gif' class='spinner'/>
+            </ul>
         </div>
 
         <div id="todo-stats"></div>
-      </div>
-    </script>
+    </div>
+</script>
 
-    <script type="text/template" id="discount-template">
-      <li>
-  <div class="view">
-    <label class="todo-content merchant-id-edit"><%= _.escape(merchantId) %></label>
-    <label class="discount-edit"><%= _.escape(discount) %></label>
-    <button class="todo-destroy"></button>
-  </div>
-  <input class="edit" id="merchant-id" value="<%= _.escape(merchantId) %>">
-  <input class="edit" id="discount" value="<%= _.escape(discount) %>">
-  <input type='hidden' class="edit" id="company-id" value="<%= _.escape(companyId.id) %>">
+<script type="text/template" id="discount-template">
+    <li>
+        <div class="view">
+            <label class="todo-content merchant-id-edit dsc-<%= _.escape(merchantId) %>"><%= _.escape(merchantId) %></label>
+            <label class="discount-edit"><%= _.escape(discount) %></label>
+            <button class="todo-destroy"></button>
+        </div>
+        <input class="edit" id="merchant-id" value="<%= _.escape(merchantId) %>">
+        <input class="edit" id="discount" value="<%= _.escape(discount) %>">
+        <input type='hidden' class="edit" id="company-id" value="<%= _.escape(companyId.id) %>">
 
-  <input type='submit' class='submit edit' value='Submit'/>
-      </li>
-    </script>
-    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-    <script src="js/underscore.js"></script>
-    <script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
-    <script src="js/models/company.js"></script>
-    <script src="js/views/company/list.js"></script>
-    <script src="js/views/company/item.js"></script>
-    <script src="js/views/company/manage.js"></script>
-    <script src="js/models/discount.js"></script>
-    <script src="js/views/discount/list.js"></script>
-    <script src="js/views/discount/item.js"></script>
-    <script src="js/views/discount/manage.js"></script>
-    <script src="js/models/employee.js"></script>
-    <script src="js/views/employee/list.js"></script>
-    <script src="js/views/employee/item.js"></script>
-    <script src="js/views/employee/manage.js"></script>
-    <script src="js/views/app.js"></script>
-    <script src="js/routes/app.js"></script>
-    <script src="js/todos.js"></script>
-  </body>
+        <input type='submit' class='submit edit' value='Submit'/>
+    </li>
+</script>
+<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script src="js/underscore.js"></script>
+<script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
+<script src="js/models/company.js"></script>
+<script src="js/views/company/list.js"></script>
+<script src="js/views/company/item.js"></script>
+<script src="js/views/company/manage.js"></script>
+<script src="js/models/discount.js"></script>
+<script src="js/views/discount/list.js"></script>
+<script src="js/views/discount/item.js"></script>
+<script src="js/views/discount/manage.js"></script>
+<script src="js/models/employee.js"></script>
+<script src="js/views/employee/list.js"></script>
+<script src="js/views/employee/item.js"></script>
+<script src="js/views/employee/manage.js"></script>
+<script src="js/views/app.js"></script>
+<script src="js/routes/app.js"></script>
+<script src="js/todos.js"></script>
+</body>
 
 </html>
