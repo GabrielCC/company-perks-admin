@@ -250,9 +250,9 @@ label[for='toggle-all'] {
     position: relative;
 }
 
-.items-list li label {
+.items-list li label.todo-content,  .items-list li label{
     word-break: break-word;
-    margin: 15px 15px 15px 60px;
+    margin: 15px 15px 15px 10px;
     display: inline-block;
     line-height: 1.2;
     -webkit-transition: color 0.4s;
@@ -262,10 +262,18 @@ label[for='toggle-all'] {
     transition: color 0.4s;
 }
 
-.items-list li.completed label {
-    color: #a9a9a9;
-    text-decoration: line-through;
+.items-list li label.todo-content{
+    margin: 15px 15px 15px 60px;
+    width:150px;
 }
+#employees-list div.view .todo-content{
+    width:430px;
+}
+
+#discounts-list li div.view label.todo-content{
+    width:360px;
+}
+
 
 .items-list li .todo-destroy {
     display: none;
@@ -445,11 +453,15 @@ label[for='toggle-all'] {
     margin-bottom: 15px;
 }
 
-#todoapp .content #user-info {
+#todoapp .content .back-btn, #todoapp .content #user-info {
     padding: 5px 10px;
-    border-top: 1px solid #ededed;
     margin-bottom: 0px;
-    text-align: right;
+    text-align: left;
+    float:right
+}
+
+#todoapp .content .back-btn {
+    float: left;
 }
 
 

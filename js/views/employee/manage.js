@@ -7,6 +7,7 @@ var ManageEmployeesView = Parse.View.extend({
         "click #clear-completed": "clearCompleted",
         "click #toggle-all": "toggleAllComplete",
         "click .log-out": "logOut",
+        "click .back-btn": "back",
         "click ul#filters a": "selectFilter"
     },
 
@@ -48,6 +49,13 @@ var ManageEmployeesView = Parse.View.extend({
         Parse.User.logOut();
         new LogInView();
         this.undelegateEvents();
+        delete this;
+    },
+
+    // Logs out the user and shows the login view
+    back: function(e) {
+        this.undelegateEvents();
+        router.navigate("/", {trigger: true, replace: true});
         delete this;
     },
 

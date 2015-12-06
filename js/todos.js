@@ -88,9 +88,9 @@
 
 
 
-  var state = new AppState;
+  var state = new AppState();
 
-  new AppRouter;
-  new AppView;
+  var router = new AppRouter();
+  var appView = new AppView();
   Parse.history.start();
 

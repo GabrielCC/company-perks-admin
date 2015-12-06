@@ -52,14 +52,10 @@
 </script>
 
 <script type="text/template" id="manage-companies-template">
-    <div id="user-info">
-        Signed in as <%= Parse.User.current().escape("username") %> (<a href="#" class="log-out">Log out</a>)
-    </div>
-
     <div class="section">
 
         <header id="header">
-          <input id="new-todo" class="new-todo"" placeholder="What needs to be done?" type="text" />
+          <input id="new-todo" class="new-todo" placeholder="Company name" type="text" />
         </header>
 
         <div id="main">
@@ -76,10 +72,10 @@
 </script>
 
 <script type="text/template" id="manage-employees-template">
-    <div id="user-info">
-        Signed in as <%= Parse.User.current().escape("username") %> (<a href="#" class="log-out">Log out</a>)
+    <div class="back-btn">
+        <a href="javascript://" class="bck">Back to companies</a>
     </div>
-
+    <div style="clear:both"></div>
     <div class="section">
 
         <header id="header">
@@ -129,9 +125,10 @@
 </script>
 
     <script type="text/template" id="manage-discounts-template">
-      <div id="user-info">
-        Signed in as <%= Parse.User.current().escape("username") %> (<a href="#" class="log-out">Log out</a>)
-      </div>
+        <div class="back-btn">
+            <a href="javascript://" class="bck">Back to companies</a>
+        </div>
+        <div style="clear:both"></div>
 
       <div class="section">
 

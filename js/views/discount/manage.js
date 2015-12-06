@@ -4,6 +4,7 @@
     events: {
       "click #add-new-discount": "createOnEnter",
       "click .log-out": "logOut",
+      "click .back-btn": "back"
     },
 
     el: ".content",
@@ -112,5 +113,11 @@
     toggleAllComplete: function () {
       var done = this.allCheckbox.checked;
       this.model.each(function (todo) { todo.save({'done': done}); });
-    }
+    },
+      // Logs out the user and shows the login view
+      back: function(e) {
+          this.undelegateEvents();
+          router.navigate("/", {trigger: true, replace: true});
+          delete this;
+      },
   });
