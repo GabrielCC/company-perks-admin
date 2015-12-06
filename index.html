@@ -1,116 +1,158 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <title>Parse JavaScript Todo App</title>
     <link href="css/todos.css" media="all" rel="stylesheet" type="text/css"/>
 
-  </head>
+</head>
 
-  <body>
+<body>
 
-    <!-- Todo App Interface -->
+<!-- Todo App Interface -->
 
-    <div id="todoapp">
-      <div class="title">
+<div id="todoapp">
+    <div class="title">
         <h1>Parse Todos</h1>
-      </div>
-
-      <div class="content">
-      </div>
     </div>
 
-    <div id="credits">
-      Powered by <a href="https://www.parse.com">Parse</a> using the <a href="https://www.parse.com/docs/js_guide">JavaScript SDK</a>.<br /><br />
-      Learn how we built it in the <a href='https://parse.com/tutorials/todo-app-with-javascript'>tutorial</a>.
+    <div class="content">
     </div>
+</div>
 
-    <!-- Templates -->
+<div id="credits">
+    Powered by <a href="https://www.parse.com">Parse</a> using the <a href="https://www.parse.com/docs/js_guide">JavaScript
+    SDK</a>.<br/><br/>
+    Learn how we built it in the <a href='https://parse.com/tutorials/todo-app-with-javascript'>tutorial</a>.
+</div>
 
-    <script type="text/template" id="login-template">
-      <header id="header"></header>
-      <div class="login">
+<!-- Templates -->
+
+<script type="text/template" id="login-template">
+    <header id="header"></header>
+    <div class="login">
         <form class="login-form">
-          <h2>Log In</h2>
-          <div class="error" style="display:none"></div>
-          <input type="text" id="login-username" placeholder="Username" />
-          <input type="password" id="login-password" placeholder="Password" />
-          <button>Log In</button>
+            <h2>Log In</h2>
+
+            <div class="error" style="display:none"></div>
+            <input type="text" id="login-username" placeholder="Username"/>
+            <input type="password" id="login-password" placeholder="Password"/>
+            <button>Log In</button>
         </form>
 
         <form class="signup-form">
-          <h2>Sign Up</h2>
-          <div class="error" style="display:none"></div>
-          <input type="text" id="signup-username" placeholder="Username" />
-          <input type="password" id="signup-password" placeholder="Create a Password" />
-          <button>Sign Up</button>
+            <h2>Sign Up</h2>
+
+            <div class="error" style="display:none"></div>
+            <input type="text" id="signup-username" placeholder="Username"/>
+            <input type="password" id="signup-password" placeholder="Create a Password"/>
+            <button>Sign Up</button>
         </form>
-      </div>
-    </script>
+    </div>
+</script>
 
-    <script type="text/template" id="manage-companies-template">
-      <div id="user-info">
+<script type="text/template" id="manage-companies-template">
+    <div id="user-info">
         Signed in as <%= Parse.User.current().escape("username") %> (<a href="#" class="log-out">Log out</a>)
-      </div>
+    </div>
 
-      <div class="section">
+    <div class="section">
 
         <header id="header">
-          <input id="new-todo" placeholder="What needs to be done?" type="text" />
+            <input id="new-todo" placeholder="What needs to be done?" type="text"/>
         </header>
 
         <div id="main">
-          <input idw="toggle-all" type="checkbox">
-          <label for="toggle-all">Mark all as complete</label>
-          
-          <ul id="companies-list" class='items-list'>
-            <img src='images/spinner.gif' class='spinner' />
-          </ul>
+            <input id="toggle-all" type="checkbox">
+            <label for="toggle-all">Mark all as complete</label>
+
+            <ul id="companies-list" class='items-list'>
+                <img src='images/spinner.gif' class='spinner'/>
+            </ul>
         </div>
 
         <div id="todo-stats"></div>
-      </div>
-    </script>
+    </div>
+</script>
 
-    <script type="text/template" id="discount-template">
-      <li>
-  <div class="view">
-    <label class="todo-content"><%= _.escape(merchantId) %></label>
-    <label class="discount"><%= _.escape(discount) %></label>
-    <button class="todo-destroy"></button>
-  </div>
-  <input class="edit" value="<%= _.escape(merchantId) %>">
-  <input class="edit" value="<%= _.escape(discount) %>">
-      </li>
-    </script>
+<script type="text/template" id="manage-employees-template">
+    <div id="user-info">
+        Signed in as <%= Parse.User.current().escape("username") %> (<a href="#" class="log-out">Log out</a>)
+    </div>
 
-    <script type="text/template" id="company-template">
-      <li>
-	<div class="view">
-	  <label class="todo-content"><%= _.escape(name) %></label>
-    <label  data-company-id="<%=_.escape(objectId)%>">
-      <a class="company-discount"href="#discounts/<%=_.escape(objectId)%>">Discounts</a>
-    </label>
-    <label  data-company-id="<%=_.escape(objectId)%>">
-      <a class="company-employee" href="#employees/<%=_.escape(objectId)%>">Employees</a>
-    </label>
-	  <button class="todo-destroy"></button>
-	</div>
-	<input class="edit" value="<%= _.escape(name) %>">
-      </li>
-    </script>
+    <div class="section">
 
-    
-    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-    <script src="js/underscore.js"></script>
-    <script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
-    <script src="js/models/company.js"></script>
-    <script src="js/views/company/list.js"></script>
-    <script src="js/views/company/item.js"></script>
-    <script src="js/views/company/manage.js"></script>
-    <script src="js/views/app.js"></script>
-    <script src="js/routes/app.js"></script>
-    <script src="js/todos.js"></script>
-  </body>
+        <header id="header">
+            <input id="new-employee" placeholder="employee names" type="text"/>
+        </header>
+
+        <div id="main">
+            <input id="toggle-all" type="checkbox">
+            <label for="toggle-all">Mark all as complete</label>
+
+            <ul id="employees-list" class='items-list'>
+                <img src='images/spinner.gif' class='spinner'/>
+            </ul>
+        </div>
+
+        <div id="todo-stats"></div>
+    </div>
+</script>
+
+
+<script type="text/template" id="discount-template">
+    <li>
+        <div class="view">
+            <label class="todo-content"><%= _.escape(merchantId) %></label>
+            <label class="discount"><%= _.escape(discount) %></label>
+            <button class="todo-destroy"></button>
+        </div>
+        <input class="edit" value="<%= _.escape(merchantId) %>">
+        <input class="edit" value="<%= _.escape(discount) %>">
+    </li>
+</script>
+
+<script type="text/template" id="company-template">
+    <li>
+        <div class="view">
+            <label class="todo-content"><%= _.escape(name) %></label>
+            <label data-company-id="<%=_.escape(objectId)%>">
+                <a class="company-discount" href="#discounts/<%=_.escape(objectId)%>">Discounts</a>
+            </label>
+            <label data-company-id="<%=_.escape(objectId)%>">
+                <a class="company-employee" href="#employees/<%=_.escape(objectId)%>">Employees</a>
+            </label>
+            <button class="todo-destroy"></button>
+        </div>
+        <input class="edit" value="<%= _.escape(name) %>">
+    </li>
+</script>
+
+<script type="text/template" id="employee-template">
+    <li>
+        <div class="view">
+            <label class="todo-content"><%= _.escape(firstName + " " + lastName) %></label>
+            <button class="todo-destroy"></button>
+        </div>
+        <input class="edit" value="<%= _.escape(firstName + ' ' + lastName) %>">
+    </li>
+</script>
+
+
+<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script src="js/underscore.js"></script>
+<script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
+<script src="js/models/company.js"></script>
+<script src="js/views/company/list.js"></script>
+<script src="js/views/company/item.js"></script>
+<script src="js/views/company/manage.js"></script>
+<script src="js/models/employee.js"></script>
+<script src="js/views/employee/list.js"></script>
+<script src="js/views/employee/item.js"></script>
+<script src="js/views/employee/manage.js"></script>
+<script src="js/views/app.js"></script>
+<script src="js/routes/app.js"></script>
+<script src="js/todos.js"></script>
+</body>
 
 </html>

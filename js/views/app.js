@@ -7,7 +7,6 @@
     initialize: function() {
       this.render();
       state.on("change", this.changeView, this);
-
     },
 
     render: function() {
@@ -23,7 +22,7 @@
       var views = {
         'companies': 'ManageCompaniesView',
         'discounts': 'ManageDiscountsView',
-        'emloyees': 'ManageEmployeesView'
+        'employees': 'ManageEmployeesView'
       };
       var view = views[section];
       new window[view];
