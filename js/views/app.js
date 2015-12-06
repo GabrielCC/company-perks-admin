@@ -10,11 +10,7 @@
     },
 
     render: function() {
-      if (Parse.User.current()) {
         this.changeView();
-      } else {
-        new LogInView();
-      }
     },
     changeView: function() {
       var section = state.get('section');
