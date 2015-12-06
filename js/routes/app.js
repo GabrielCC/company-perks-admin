@@ -1,5 +1,6 @@
   var AppRouter = Parse.Router.extend({
     routes: {
+      "": "companies",
       "companies": "companies",
       "discounts/:companyId": "discounts",
       "employees/:companyId": "employees"
